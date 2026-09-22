@@ -1,0 +1,181 @@
+:root {
+    --light-x: 50%;
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+#player {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    width: 75px;
+    height: auto;
+    transition: left 0.08s linear;
+}
+
+#walking-person {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#footprint {
+    position: fixed;
+    top: calc(50% + 45px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+    background-image: url("images/person-moving.png");
+    background-size: cover;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+#flashlight {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 4;
+    pointer-events: none;
+    background: radial-gradient(circle 220px at var(--light-x) 50%, transparent 0%, transparent 55%, rgba(0, 0, 0, 0.94) 100%);
+}
+
+#intro-text {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.rooms {
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.furniture {
+    position: absolute;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.rat {
+    z-index: 1;
+    opacity: 0.95;
+}
+
+.room-label {
+    position: sticky;
+    top: 20px;
+    left: 20px;
+    display: inline-block;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 4px 10px;
+    font-family: sans-serif;
+    font-size: 13px;
+    z-index: 2;
+    opacity: 0.6;
+}
+
+#room-1 {
+    height: 100vh;
+    background-image: url("images/Room1.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#room-2 {
+    height: 200vh;
+    background-image: url("images/floor.jpg");
+    background-size: 20% auto;
+    background-repeat: repeat;
+}
+
+#room-3 {
+    height: 100vh;
+    background-image: url("images/Room3.avif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.wall {
+    position: relative;
+    height: 10px;
+    width: 100%;
+    background-color: #999;
+}
+
+.door {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    width: 250px;
+    background-color: #000;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.door:hover {
+    opacity: 0.4;
+}
+
+.wall-light {
+    position: absolute;
+    top: -12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #fff3c4;
+    box-shadow:
+        0 0 14px 6px rgba(255, 233, 168, 1),
+        0 0 45px 20px rgba(255, 233, 168, 0.55);
+    z-index: 6;
+}
+
+#exit-room {
+    height: 100vh;
+    width: 100%;
+    background-color: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#exit-room h1 {
+    color: #fff;
+    font-family: sans-serif;
+    margin-bottom: 20px;
+}
+
+#celebration-gif {
+    width: 300px;
+    height: auto;
+}

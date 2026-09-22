@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>My Backrooms - Escape the Backrooms</title>
+
+        <meta name="description" content="Carolina's Backrooms Project">
+        <meta name="keywords" content="HTML, CSS">
+        <meta name="author" content="Carolina Miao">
+
+        <link rel="stylesheet" href="styles.css">
+
+    </head>
+
+    <body>
+
+        <div id="player">
+            <img id="walking-person" src="images/WalkingPerson.gif"/>
+        </div>
+
+        <div id="footprint"></div>
+
+        <div id="flashlight"></div>
+
+        <div id="intro-text">You're trapped in the backrooms... use ← → arrow keys to move, scroll down to find the exit</div>
+
+        <div id="room-1" class="rooms">
+            <div class="room-label">Room 1</div>
+            <img class="furniture" src="images/dining-table.png" style="left:8%; top:18%; width:180px; transform:rotate(-4deg);"/>
+            <img class="furniture" src="images/chest-of-drawers.png" style="left:68%; top:12%; width:140px; transform:rotate(3deg);"/>
+            <img class="furniture" src="images/dining-table.png" style="left:42%; top:55%; width:160px; transform:rotate(2deg);"/>
+            <img class="furniture" src="images/chest-of-drawers.png" style="left:14%; top:68%; width:130px; transform:rotate(-2deg);"/>
+            <img class="furniture" src="images/dining-table.png" style="left:78%; top:62%; width:150px; transform:rotate(5deg);"/>
+            <img class="furniture" src="images/chest-of-drawers.png" style="left:52%; top:8%; width:120px; transform:rotate(-3deg);"/>
+        </div>
+
+        <div class="wall">
+            <div class="door"></div>
+            <div class="wall-light" style="left:15%"></div>
+            <div class="wall-light" style="left:85%"></div>
+        </div>
+
+        <div id="room-2" class="rooms">
+            <div class="room-label">Room 2</div>
+            <img class="furniture" src="images/tent.png" style="left:8%; top:6%; width:170px; transform:rotate(-2deg);"/>
+            <img class="furniture" src="images/treasure.webp" style="left:70%; top:10%; width:100px; transform:rotate(4deg);"/>
+            <img class="furniture" src="images/tent.png" style="left:48%; top:24%; width:160px; transform:rotate(3deg);"/>
+            <img class="furniture" src="images/treasure.webp" style="left:18%; top:34%; width:110px; transform:rotate(-3deg);"/>
+            <img class="furniture" src="images/tent.png" style="left:78%; top:44%; width:150px; transform:rotate(-4deg);"/>
+            <img class="furniture" src="images/treasure.webp" style="left:38%; top:54%; width:100px; transform:rotate(2deg);"/>
+            <img class="furniture" src="images/tent.png" style="left:12%; top:64%; width:165px; transform:rotate(2deg);"/>
+            <img class="furniture" src="images/treasure.webp" style="left:64%; top:74%; width:105px; transform:rotate(-2deg);"/>
+            <img class="furniture" src="images/tent.png" style="left:34%; top:84%; width:155px; transform:rotate(-3deg);"/>
+            <img class="furniture" src="images/treasure.webp" style="left:84%; top:92%; width:100px; transform:rotate(3deg);"/>
+        </div>
+
+        <div class="wall">
+            <div class="door"></div>
+            <div class="wall-light" style="left:15%"></div>
+            <div class="wall-light" style="left:85%"></div>
+        </div>
+
+        <div id="room-3" class="rooms">
+            <div class="room-label">Room 3</div>
+            <img class="furniture rat" src="images/rat.png" style="left:10%; top:15%; width:55px;"/>
+            <img class="furniture rat" src="images/rat.png" style="left:25%; top:40%; width:50px; transform:scaleX(-1);"/>
+            <img class="furniture rat" src="images/rat.png" style="left:60%; top:20%; width:60px; transform:scaleX(-1);"/>
+            <img class="furniture rat" src="images/rat.png" style="left:75%; top:55%; width:50px;"/>
+            <img class="furniture rat" src="images/rat.png" style="left:40%; top:70%; width:55px;"/>
+            <img class="furniture rat" src="images/rat.png" style="left:85%; top:35%; width:50px; transform:scaleX(-1);"/>
+            <img class="furniture rat" src="images/rat.png" style="left:15%; top:80%; width:55px; transform:scaleX(-1);"/>
+            <img class="furniture rat" src="images/rat.png" style="left:55%; top:85%; width:50px;"/>
+            <img class="furniture beetle" src="images/beetle.webp" style="left:32%; top:12%; width:45px; transform:rotate(15deg);"/>
+            <img class="furniture beetle" src="images/beetle.webp" style="left:68%; top:65%; width:40px; transform:rotate(-20deg);"/>
+            <img class="furniture beetle" src="images/beetle.webp" style="left:20%; top:55%; width:50px; transform:rotate(8deg) scaleX(-1);"/>
+            <img class="furniture beetle" src="images/beetle.webp" style="left:88%; top:20%; width:42px; transform:rotate(-10deg);"/>
+            <img class="furniture beetle" src="images/beetle.webp" style="left:48%; top:88%; width:48px; transform:rotate(25deg) scaleX(-1);"/>
+        </div>
+
+        <div class="wall">
+            <div class="door"></div>
+            <div class="wall-light" style="left:15%"></div>
+            <div class="wall-light" style="left:85%"></div>
+        </div>
+
+        <div id="exit-room">
+            <h1>You escaped the Backrooms!</h1>
+            <img id="celebration-gif" src="images/Dance Cat GIF.gif"/>
+        </div>
+
+        <script>
+            const player = document.getElementById("player");
+            const walkingPerson = document.getElementById("walking-person");
+            const exitRoom = document.getElementById("exit-room");
+            const flashlight = document.getElementById("flashlight");
+            const footprint = document.getElementById("footprint");
+
+            let playerX = window.innerWidth / 2;
+            const step = 25;
+            const doors = document.querySelectorAll(".door");
+
+            function getBlockingDoor() {
+                const centerY = window.innerHeight / 2;
+                const wallZone = 35;
+
+                for (const door of doors) {
+                    const rect = door.getBoundingClientRect();
+                    if (rect.top - wallZone <= centerY && rect.bottom + wallZone >= centerY) {
+                        return rect;
+                    }
+                }
+                return null;
+            }
+
+            function updatePlayerPosition() {
+                let min = 40;
+                let max = window.innerWidth - 40;
+
+                const blockingDoor = getBlockingDoor();
+                if (blockingDoor) {
+                    min = Math.max(min, blockingDoor.left + 15);
+                    max = Math.min(max, blockingDoor.right - 15);
+                }
+
+                playerX = Math.max(min, Math.min(max, playerX));
+
+                player.style.left = playerX + "px";
+                footprint.style.left = playerX + "px";
+
+                document.documentElement.style.setProperty("--light-x", playerX + "px");
+            }
+
+            window.addEventListener("scroll", updatePlayerPosition);
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowLeft") {
+                    playerX -= step;
+                    walkingPerson.style.transform = "scaleX(-1)";
+                    footprint.style.opacity = "1";
+                    updatePlayerPosition();
+                } else if (e.key === "ArrowRight") {
+                    playerX += step;
+                    walkingPerson.style.transform = "scaleX(1)";
+                    footprint.style.opacity = "1";
+                    updatePlayerPosition();
+                }
+            });
+
+            let fadeTimer;
+            document.addEventListener("keyup", (e) => {
+                if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+                    clearTimeout(fadeTimer);
+                    fadeTimer = setTimeout(() => {
+                        footprint.style.opacity = "0";
+                    }, 300);
+                }
+            });
+
+            updatePlayerPosition();
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        player.style.display = "none";
+                        flashlight.style.display = "none";
+                        footprint.style.display = "none";
+                    } else {
+                        player.style.display = "block";
+                        flashlight.style.display = "block";
+                        footprint.style.display = "block";
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(exitRoom);
+        </script>
+
+    </body>
+
+</html>
